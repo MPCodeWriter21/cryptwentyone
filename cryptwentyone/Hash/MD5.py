@@ -65,7 +65,7 @@ class MD5Python:
         :param n: The number of bits to rotate.
         :return: The rotated value.
         """
-        return (x << n) | (x >> (32 - n))
+        return ((x << n) | (x >> (32 - n))) % MD5Python.X
 
     @staticmethod
     def modular_add(x: int, y: int) -> int:
