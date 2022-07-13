@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='cryptwentyone',
-    version='0.2.0',
+    version='0.2.1',
     description='A fun package for cryptography',
     author='CodeWriter21',
     author_email='CodeWriter21@gmail.com',
