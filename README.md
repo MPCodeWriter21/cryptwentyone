@@ -1,4 +1,4 @@
-Cryptwentyone\[0.2.3\]
+Cryptwentyone\[0.2.4\]
 =============
 
 Cryptwentyone is a simple python package that provides simple cryptographic and hashing functions. They are written in
@@ -35,6 +35,6 @@ Aparat Channel: [CodeWriter21](https://www.aparat.com/CodeWriter21)
 
 In order to support this project you can donate some crypto of your choice 8D
 
-[Donate Addresses](https://github.com/MPCodeWriter21/log21/blob/master/DONATE.md)
+[Donate Addresses](https://github.com/MPCodeWriter21/cryptwentyone/blob/master/DONATE.md)
 
-Or if you can't, give [this project](https://github.com/MPCodeWriter21/log21) a star on GitHub :)
+Or if you can't, give [this project](https://github.com/MPCodeWriter21/cryptwentyone) a star on GitHub :)
