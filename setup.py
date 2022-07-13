@@ -5,7 +5,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='cryptwentyone',
-    version='0.2.1',
+    version='0.2.2',
     description='A fun package for cryptography',
     author='CodeWriter21',
     author_email='CodeWriter21@gmail.com',
@@ -14,7 +14,6 @@ setup(
     license='Apache License, Version 2.0',
     classifiers=[
         'Intended Audience :: Developers',
-        'License :: Apache Software License',
         'Programming Language :: Python :: 3',
     ]
 )
