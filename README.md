@@ -1,11 +1,11 @@
-Cryptwentyone\[0.2.4\]
+Cryptwentyone\[0.2.5\]
 =============
 
 Cryptwentyone is a simple python package that provides simple cryptographic and hashing functions. They are written in
 pure python and C, so you can take a look at the python code if you want to learn about the algorithms or use the
 compiled C code if you want to use the functions in your own programs and have a good performance.
 
-The Package is under development and is not yet ready for use. Support me
+**_The Package is under development and is not yet ready for use._** Support me
 by [donating](https://github.com/MPCodeWriter21/cryptwentyone/blob/master/DONATE.md) or by contributing(Fork the repo.
 Add your code. Submit a pull request.) or just give this repository a star.
 
