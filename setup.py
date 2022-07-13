@@ -3,9 +3,13 @@
 
 from setuptools import setup, find_packages
 
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+
 setup(
     name='cryptwentyone',
-    version='0.2.2',
+    version='0.2.3',
     description='A fun package for cryptography',
     author='CodeWriter21',
     author_email='CodeWriter21@gmail.com',
@@ -15,5 +19,7 @@ setup(
     classifiers=[
         'Intended Audience :: Developers',
         'Programming Language :: Python :: 3',
-    ]
+    ],
+    long_description=long_description,
+    long_description_content_type="text/markdown"
 )

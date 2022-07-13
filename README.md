@@ -1,4 +1,4 @@
-Cryptwentyone\[0.2.2\]
+Cryptwentyone\[0.2.3\]
 =============
 
 Cryptwentyone is a simple python package that provides simple cryptographic and hashing functions. They are written in
