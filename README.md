@@ -1,4 +1,4 @@
-Cryptwentyone\[0.3.0\]
+Cryptwentyone\[0.4.0\]
 =============
 
 Cryptwentyone is a simple python package that provides simple cryptographic and hashing functions. They are written in
@@ -14,8 +14,35 @@ Available Features
 
 + Python Implementation of MD5 hashing algorithm
 + Python Implementation of SHA1 hashing algorithm
-+ Python Implementation of SHA2(SHA256) hashing algorithm
-+ Any idea? Feel free to [open an issue](https://github.com/MPCodeWriter21/cryptwentyone/issues) or submit a pull request.
++ Python Implementation of SHA2(SHA224, SHA256) hashing algorithm
++ Any idea? Feel free to [open an issue](https://github.com/MPCodeWriter21/cryptwentyone/issues) or submit a pull
+  request.
+
+Installation
+------------
+
+Well, this is a python package so the first thing you need is python.
+
+If you don't have python installed, please visit [Python.org](https://python.org) and install the latest version of
+python.
+
+Then you can install cryptwentyone using pip module:
+
+```shell
+# Use this command to download the latest version from pypi.org and install it automatically
+python -m pip install log21 -U
+
+# OR
+# Download the release file from GitHub: https://github.com/MPCodeWriter21/cryptwentyone/releases
+# And install it using this command
+pip install cryptwentyone-x.x.x.tar.gz
+```
+
+Or you can clone [the repository](https://github.com/MPCodeWriter21/cryptwentyone) and run:
+
+```shell
+python setup.py install
+```
 
 About
 -----

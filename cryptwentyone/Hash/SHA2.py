@@ -3,17 +3,7 @@
 
 from .Hash import Hash
 
-__all__ = ['SHA2Python', 'SHA256Python']
-
-# Constant values for SHA-2.
-H0 = 0x6a09e667
-H1 = 0xbb67ae85
-H2 = 0x3c6ef372
-H3 = 0xa54ff53a
-H4 = 0x510e527f
-H5 = 0x9b05688c
-H6 = 0x1f83d9ab
-H7 = 0x5be0cd19
+__all__ = ['SHA256Python', 'SHA224Python']
 
 k = [0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
      0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174,
@@ -26,6 +16,8 @@ k = [0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x9
 
 
 class SHA2Python(Hash):
+    H0 = H1 = H2 = H3 = H4 = H5 = H6 = H7 = 0
+
     h0: int
     h1: int
     h2: int
@@ -37,20 +29,34 @@ class SHA2Python(Hash):
     name: str = 'sha2'
 
     def _initialize_variables(self):
-        self.h0 = H0
-        self.h1 = H1
-        self.h2 = H2
-        self.h3 = H3
-        self.h4 = H4
-        self.h5 = H5
-        self.h6 = H6
-        self.h7 = H7
+        self.h0 = self.H0
+        self.h1 = self.H1
+        self.h2 = self.H2
+        self.h3 = self.H3
+        self.h4 = self.H4
+        self.h5 = self.H5
+        self.h6 = self.H6
+        self.h7 = self.H7
 
     def _hash(self) -> bytes:
         """
         Calculates the SHA2 hash of the message.
 
         :return: The SHA2 hash of the message.
+        """
+        message = self._preprocess()
+
+        # Process the padded message in successive 512-bit chunks.
+        for i in range(0, len(message), 64):
+            self._process_chunk(message[i:i + 64])
+
+        raise NotImplementedError('Child class must implement _hash method!')
+
+    def _preprocess(self):
+        """
+        Pads the message and adds the representation of length to it.
+
+        :return:
         """
         # Pad the message with a 1 bit followed by 0 bits.
         message = self.message + b"\x80"  # 0b10000000
@@ -61,14 +67,7 @@ class SHA2Python(Hash):
         # Append a 64-bit representation of the original message's length
         message += self.ml.to_bytes(8, 'big')
 
-        # Process the padded message in successive 512-bit chunks.
-        for i in range(0, len(message), 64):
-            self._process_chunk(message[i:i + 64])
-
-        # Return the result as bytes
-        return self.h0.to_bytes(4, 'big') + self.h1.to_bytes(4, 'big') + self.h2.to_bytes(4, 'big') + \
-               self.h3.to_bytes(4, 'big') + self.h4.to_bytes(4, 'big') + self.h5.to_bytes(4, 'big') + \
-               self.h6.to_bytes(4, 'big') + self.h7.to_bytes(4, 'big')
+        return message
 
     def _process_chunk(self, chunk: bytes):
         """
@@ -128,4 +127,69 @@ class SHA2Python(Hash):
         return f"SHA2Python(message={self.message!r}, hash={str(self)!r})"
 
 
-SHA256Python = SHA2Python
+class SHA224Python(SHA2Python):
+    # Constant values for SHA-224
+    H0 = 0xc1059ed8
+    H1 = 0x367cd507
+    H2 = 0x3070dd17
+    H3 = 0xf70e5939
+    H4 = 0xffc00b31
+    H5 = 0x68581511
+    H6 = 0x64f98fa7
+    H7 = 0xbefa4fa4
+
+    name: str = 'sha224'
+
+    def _hash(self) -> bytes:
+        """
+        Calculates the SHA224 hash of the message.
+
+        :return: The SHA224 hash of the message.
+        """
+        message = self._preprocess()
+
+        # Process the preprocessed message in successive 512-bit chunks.
+        for i in range(0, len(message), 64):
+            self._process_chunk(message[i:i + 64])
+
+        # Return the result as bytes
+        return self.h0.to_bytes(4, 'big') + self.h1.to_bytes(4, 'big') + self.h2.to_bytes(4, 'big') + \
+               self.h3.to_bytes(4, 'big') + self.h4.to_bytes(4, 'big') + self.h5.to_bytes(4, 'big') + \
+               self.h6.to_bytes(4, 'big')
+
+    def __repr__(self):
+        return f"SHA256Python(message={self.message!r}, hash={str(self)!r})"
+
+
+class SHA256Python(SHA2Python):
+    # Constant values for SHA-256
+    H0 = 0x6a09e667
+    H1 = 0xbb67ae85
+    H2 = 0x3c6ef372
+    H3 = 0xa54ff53a
+    H4 = 0x510e527f
+    H5 = 0x9b05688c
+    H6 = 0x1f83d9ab
+    H7 = 0x5be0cd19
+
+    name: str = 'sha256'
+
+    def _hash(self) -> bytes:
+        """
+        Calculates the SHA256 hash of the message.
+
+        :return: The SHA256 hash of the message.
+        """
+        message = self._preprocess()
+
+        # Process the preprocessed message in successive 512-bit chunks.
+        for i in range(0, len(message), 64):
+            self._process_chunk(message[i:i + 64])
+
+        # Return the result as bytes
+        return self.h0.to_bytes(4, 'big') + self.h1.to_bytes(4, 'big') + self.h2.to_bytes(4, 'big') + \
+               self.h3.to_bytes(4, 'big') + self.h4.to_bytes(4, 'big') + self.h5.to_bytes(4, 'big') + \
+               self.h6.to_bytes(4, 'big') + self.h7.to_bytes(4, 'big')
+
+    def __repr__(self):
+        return f"SHA256Python(message={self.message!r}, hash={str(self)!r})"
