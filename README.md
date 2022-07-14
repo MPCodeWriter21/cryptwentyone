@@ -1,4 +1,4 @@
-Cryptwentyone\[0.2.5\]
+Cryptwentyone\[0.3.0\]
 =============
 
 Cryptwentyone is a simple python package that provides simple cryptographic and hashing functions. They are written in
@@ -14,6 +14,8 @@ Available Features
 
 + Python Implementation of MD5 hashing algorithm
 + Python Implementation of SHA1 hashing algorithm
++ Python Implementation of SHA2(SHA256) hashing algorithm
++ Any idea? Feel free to [open an issue](https://github.com/MPCodeWriter21/cryptwentyone/issues) or submit a pull request.
 
 About
 -----

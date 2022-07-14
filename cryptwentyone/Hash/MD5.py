@@ -1,12 +1,9 @@
 # cryptwentyone.Hash.MD5.py
 # CodeWriter21
 
-import binascii as _binascii
-
-from typing import Union as _Union
+from .Hash import Hash
 
 __all__ = ['MD5Python']
-
 
 K = [
     0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee,
@@ -39,46 +36,20 @@ WORD_C = 0x98badcfe
 WORD_D = 0x10325476
 
 
-class MD5Python:
-    X = 2 ** 32
+class MD5Python(Hash):
+    a0: int
+    b0: int
+    c0: int
+    d0: int
+    name: str = 'md5'
 
-    def __init__(self, message: _Union[str, bytes]):
-        if isinstance(message, str):
-            message = message.encode()
-        if not isinstance(message, bytes):
-            raise TypeError("Message must be a string or bytes")
-        self.message: bytes = message
-
+    def _initialize_variables(self):
         self.a0: int = WORD_A
         self.b0: int = WORD_B
         self.c0: int = WORD_C
         self.d0: int = WORD_D
 
-        self.hash: bytes = self.__hash()
-
-    @staticmethod
-    def left_rotate(x: int, n: int) -> int:
-        """
-        Rotates x to the left by n bits.
-
-        :param x: The value to rotate.
-        :param n: The number of bits to rotate.
-        :return: The rotated value.
-        """
-        return ((x << n) | (x >> (32 - n))) % MD5Python.X
-
-    @staticmethod
-    def modular_add(x: int, y: int) -> int:
-        """
-        Adds x and y modulo 2**32.
-
-        :param x: The first value.
-        :param y: The second value.
-        :return: The sum of x and y modulo 2**32.
-        """
-        return (x + y) % MD5Python.X
-
-    def __hash(self) -> bytes:
+    def _hash(self) -> bytes:
         """
         Calculates the MD5 hash of the message.
 
@@ -92,17 +63,17 @@ class MD5Python:
         message += b"\x00" * ((56 - modulo_length) if modulo_length <= 56 else (56 + 64 - modulo_length))
 
         # Append a 64-bit representation of the original message's length
-        message += (len(self.message) * 8).to_bytes(8, 'little')
+        message += ((len(self.message) * 8) % 2 ** 64).to_bytes(8, 'little')
 
         # Process the padded message in successive 512-bit chunks.
         for i in range(0, len(message), 64):
-            self.__process_chunk(message[i:i + 64])
+            self._process_chunk(message[i:i + 64])
 
         # Return the result as bytes
         return self.a0.to_bytes(4, 'little') + self.b0.to_bytes(4, 'little') + self.c0.to_bytes(4, 'little') + \
                self.d0.to_bytes(4, 'little')
 
-    def __process_chunk(self, chunk: bytes):
+    def _process_chunk(self, chunk: bytes):
         """
         Processes a 512-bit chunk of the message.
 
@@ -133,9 +104,7 @@ class MD5Python:
             elif 48 <= i <= 63:
                 temp = c ^ (b | (~d))
                 g = (7 * i) % 16
-            temp = self.modular_add(temp, a)
-            temp = self.modular_add(temp, K[i])
-            temp = self.modular_add(temp, w[g])
+            temp = self.modular_add(temp, a, K[i], w[g])
             a = d
             d = c
             c = b
@@ -147,25 +116,5 @@ class MD5Python:
         self.c0 = self.modular_add(self.c0, c)
         self.d0 = self.modular_add(self.d0, d)
 
-    def hexdigest(self) -> str:
-        """
-        Returns the MD5 hash of the message as a hexadecimal string.
-
-        :return: The MD5 hash of the message as a hexadecimal string.
-        """
-        return _binascii.hexlify(self.hash).decode()
-
-    def __str__(self):
-        return _binascii.hexlify(self.hash).decode()
-
     def __repr__(self):
         return f"MD5Python(message={self.message!r}, hash={str(self)!r})"
-
-    def __eq__(self, other):
-        return self.hash == other.hash
-
-    def __hash__(self):
-        return hash(self.hash)
-
-    def __ne__(self, other):
-        return self.hash != other.hash
