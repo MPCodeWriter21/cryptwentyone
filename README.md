@@ -1,4 +1,4 @@
-Cryptwentyone\[0.5.0\]
+Cryptwentyone\[0.5.1\]
 =============
 
 Cryptwentyone is a simple python package that provides simple cryptographic and hashing functions. They are written in
@@ -30,7 +30,7 @@ Then you can install cryptwentyone using pip module:
 
 ```shell
 # Use this command to download the latest version from pypi.org and install it automatically
-python -m pip install log21 -U
+python -m pip install cryptwentyone -U
 
 # OR
 # Download the release file from GitHub: https://github.com/MPCodeWriter21/cryptwentyone/releases

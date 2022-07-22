@@ -1,9 +1,11 @@
 # cryptwentyone.__init__.py
 # CodeWriter21
 
-__version__ = "0.5.0"
+__version__ = "0.5.1"
 __author__ = "CodeWriter21"
 __email__ = "CodeWriter21@gmail.com"
 __github__ = "https://GitHub.com/MPCodeWriter21/cryptwentyone"
 __url__ = "https://GitHub.com/MPCodeWriter21/cryptwentyone"
 __license__ = "Apache License, Version 2.0"
+
+import cryptwentyone.Hash

@@ -9,7 +9,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name='cryptwentyone',
-    version='0.5.0',
+    version='0.5.1',
     description='A fun package for cryptography',
     author='CodeWriter21',
     author_email='CodeWriter21@gmail.com',
